@@ -1,0 +1,48 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.row{
+  margin: auto;
+}
+
+.col-xs{
+ margin: 5px;
+ min-width: 50px;
+ max-width: 100px;
+ min-height: 50px;
+ max-height: 100px;
+ border-radius: 50%;
+ text-align: center;
+ vertical-align: middle;
+ line-height: 50px; 
+}
+
+#rojo{
+	background-color: #fd4a4a;
+}
+
+#azul{
+  background-color: #4b4bf7;
+  color: white;	
+}
+
+#verde{
+	background-color: #5fd85f;
+}
+
+#amarillo{
+	background-color: #e4e495;
+}
+
+img{
+  margin-top: 20px;
+}
