@@ -6,6 +6,11 @@ const port = new SerialPort('COM5', {
 
 const parser = port.pipe(new Readline({delimiter: '\r\n'}));
 
+const delay = (ms) => {
+	const startPoint = new Date().getTime()
+	while (new Date().getTime() - startPoint <= ms) {/* wait */}
+}
+
 /*var five = require("johnny-five");
 var board = new five.Board();
 */
@@ -24,6 +29,12 @@ module.exports = function (io){
 			}
 			else if(data == "noJugando"){
 				jugando = data;
+			}
+			else if(data == "apagado" || data == "encendido"){
+				if(data == "apagado")
+					io.emit("estado", "Encender");
+				else
+					io.emit("estado", "Apagar");
 			}
 			else if(data == "ledRojo"){
 				io.emit("ledRojo");
@@ -64,6 +75,8 @@ module.exports = function (io){
 			}
 		});
 
+		setInterval(prueba, 5000);
+
 		cliente.on("disconnect", data => {
 			console.log("Cliente Desconectado: " + cliente.request.connection.remoteAddress);
 			console.log("Motivo: " + data);
@@ -71,5 +84,73 @@ module.exports = function (io){
 
 	});
 
-
+	function prueba(){
+		parser.emit("data", "jugando");
+		setTimeout(() => {
+			parser.emit("data", "ledAzul");
+			setTimeout(() => {
+				parser.emit("data", "ledVerde");
+				setTimeout(() => {
+					parser.emit("data", "ledAmarillo");
+					setTimeout(() => {
+						parser.emit("data", 4);
+						setTimeout(() => {
+							parser.emit("data", "ledAzul");
+							setTimeout(() => {
+								parser.emit("data", "ledVerde");
+								setTimeout(() => {
+									parser.emit("data", "ledAzul");
+									setTimeout(() => {
+										parser.emit("data", "ledVerde");
+										setTimeout(() => {
+											parser.emit("data", "ledRojo");
+											setTimeout(() => {
+												parser.emit("data", "ledRojo");
+												setTimeout(() => {
+													parser.emit("data", 5);
+													setTimeout(() => {
+														parser.emit("data", "ledVerde");
+														setTimeout(() => {
+															parser.emit("data", "ledAzul");
+															setTimeout(() => {
+																parser.emit("data", "ledVerde");
+																setTimeout(() => {
+																	parser.emit("data", "ledRojo");
+																	setTimeout(() => {
+																		parser.emit("data", "ledRojo");
+																		setTimeout(() => {
+																			parser.emit("data", "ledAmarillo");
+																			setTimeout(() => {
+																				parser.emit("data", "ledAmarillo");
+																				setTimeout(() => {
+																					parser.emit("data", 4);
+																					setTimeout(() => {
+																						parser.emit("data", "apagado");
+																						setTimeout(() => {
+																							parser.emit("data", "encendido");														
+																							setTimeout(() => {
+																								parser.emit("data", "noJugando");
+																							},2000);
+																						},2000);														
+																					},2000);											
+																				},2000);
+																			},2000);
+																		},2000);
+																	},2000);
+																},2000);
+															},2000);
+														},2000);
+													},2000);
+												},2000);
+											},2000);
+										},2000);
+									},2000);
+								},2000);
+							},2000);
+						},2000);
+					},2000);
+				},2000);
+			},2000);
+		},2000);		
+	}
 };

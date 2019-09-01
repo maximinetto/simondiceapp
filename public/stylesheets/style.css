@@ -26,20 +26,20 @@ a {
  line-height: 50px; 
 }
 
-#rojo{
+#lRojo{
 	background-color: #fd4a4a;
 }
 
-#azul{
+#lAzul{
   background-color: #4b4bf7;
   color: white;	
 }
 
-#verde{
+#lVerde{
 	background-color: #5fd85f;
 }
 
-#amarillo{
+#lAmarillo{
 	background-color: #e4e495;
 }
 
