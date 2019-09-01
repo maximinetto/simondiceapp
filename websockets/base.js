@@ -1,4 +1,5 @@
 const SerialPort = require('serialport');
+const download = require('../utils/camara');
 var Readline = require('@serialport/parser-readline');
 const port = new SerialPort('COM5', {
   baudRate: 9600
@@ -62,6 +63,7 @@ module.exports = function (io){
 			}
 			else if(Number.isInteger(data)){
 				io.emit("puntaje", data);
+				download.getImage();
 			}
 			io.emit('ver', data);
 		});

@@ -7,6 +7,7 @@ function leer(){
 
 	eventoButton();
 
+	
 
 	function eventoButton(){
 		let cambiarEstado = document.getElementById('cambiarEstado');
@@ -27,7 +28,7 @@ function leer(){
 			let currentScore = Number.parseInt(dato, 10);
 			if(previousScore < currentScore){
 				puntajeMaximo.textContent = currentScore;
-				takePhoto();
+				getPhoto();
 			}
 		});
 	}
@@ -70,8 +71,9 @@ function leer(){
 		});
 	}
 
-	function takePhoto(){
-
+	function getPhoto(){
+		let imagen = document.getElementById('foto');
+		imagen.src = "/images/camara.jpg?" + new Date().getTime();
 	}
 }
 
