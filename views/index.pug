@@ -1,0 +1,18 @@
+extends layout
+
+block content
+	h1 Simón dice:
+	div(class="content")
+		div(class="row justify-content-end")
+			label Puntaje Máximo:
+			span(id="puntajeMaximo") 0
+		div(class="row justify-content-end")
+			img(id="foto",alt="foto",url="/images/camara.jpg")
+		div(class="row justify-content-center")
+			div(id="lRojo", class="col-xs") LED
+			div(id="lAzul", class="col-xs") LED
+		div(class="row justify-content-center")
+			div(id="lVerde", class="col-xs") LED
+			div(id="lAmarillo" class="col-xs") LED
+		div(class="row justify-content-center")
+			button(id="cambiarEstado") Apagar
