@@ -25,7 +25,6 @@ module.exports = function (io){
 
 		parser.on('data', (data) =>{
 			console.log(data);
-			typeof(data);
 			if(data == "jugando"){
 				jugando = data;
 			}
@@ -54,6 +53,15 @@ module.exports = function (io){
 				io.emit("ledAmarillo");
 				console.log("PREsIONO AMARILLO");
 			}
+			else if(data == "ledAzul"){
+				io.emit("ledAzul")
+			}
+			else if(data == "ledVerde"){
+				io.emit("ledVerde");
+			}
+			else if(data == "ledAmarillo"){
+				io.emit("ledAmarillo");
+			}
 			else if(data == "bRojo"){
 				io.emit("bRojo");
 			}
@@ -69,6 +77,8 @@ module.exports = function (io){
 			else if(!isNaN(data)){
 				io.emit("puntaje", data);
 				console.log("ENTRO");
+			else if(Number.isInteger(data)){
+				io.emit("puntaje", data);
 				download.getImage();
 			}
 			io.emit('ver', data);
@@ -82,8 +92,6 @@ module.exports = function (io){
 				parser.write(data);
 			}
 		});
-
-		//setInterval(prueba, 5000);
 
 		cliente.on("disconnect", data => {
 			console.log("Cliente Desconectado: " + cliente.request.connection.remoteAddress);
