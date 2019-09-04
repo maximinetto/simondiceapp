@@ -7,16 +7,8 @@ const port = new SerialPort('COM4', {
 
 const parser = port.pipe(new Readline({delimiter: '\r\n'}));
 
-const delay = (ms) => {
-	const startPoint = new Date().getTime()
-	while (new Date().getTime() - startPoint <= ms) {/* wait */}
-}
-
-/*var five = require("johnny-five");
-var board = new five.Board();
-*/
-
 let jugando = 'jugando';
+let puntaje = 0;
 
 module.exports = function (io){
 	io.on('connection', (cliente) => {
@@ -75,13 +67,11 @@ module.exports = function (io){
 				io.emit("bAmarillo");
 			}
 			else if(!isNaN(data)){
-				io.emit("puntaje", data);
-				console.log("ENTRO");
-			else if(Number.isInteger(data)){
-				io.emit("puntaje", data);
-				download.getImage();
+				download.getImage(() => {
+					io.emit("puntaje", data);
+					console.log("Entro");
+				});
 			}
-			io.emit('ver', data);
 		});
 
 		cliente.on("cambiarEstado", (data) => {
@@ -93,6 +83,11 @@ module.exports = function (io){
 			}
 		});
 
+		setInterval(() =>{
+			puntaje += 1;
+			parser.emit('data', puntaje);
+		}, 10000);
+		
 		cliente.on("disconnect", data => {
 			console.log("Cliente Desconectado: " + cliente.request.connection.remoteAddress);
 			console.log("Motivo: " + data);

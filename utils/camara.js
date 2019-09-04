@@ -12,7 +12,7 @@ const password = usuario;
 
 
 module.exports = {
-    getImage: function(){
+    getImage: function(callback){
         var respuesta;
         var download = function(url, filename, callback){
             respuesta = request.get(url, {
@@ -24,18 +24,20 @@ module.exports = {
             }, function(err, res, body){
                 
                 if(!err && res.statusCode == 200){
-                    
                     console.log("Imagen guardada!");
                 }
-                
+                else{
+                    console.log("Error" + err);
+                }
+                callback();
             }).pipe(fs.createWriteStream(filename));
 
-            
-            
         };
         
         download(url, './public/images/camara.jpg', function(){
             console.log('done');
+            callback();
         });
+        
     }
 };

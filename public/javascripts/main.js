@@ -73,7 +73,7 @@ function leer(){
 
 	function getPhoto(){
 		let imagen = document.getElementById('foto');
-		imagen.src = "/images/camara.jpg";
+		imagen.src = "/images/camara.jpg?" + new Date().getTime();
 	}
 }
 
