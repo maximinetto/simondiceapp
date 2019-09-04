@@ -15,6 +15,8 @@ module.exports = function (io){
 		
 		console.log('Cliente conectado');
 
+		io.emit("puntaje", puntaje);
+
 		parser.on('data', (data) =>{
 			console.log(data);
 			if(data == "jugando"){
@@ -68,7 +70,8 @@ module.exports = function (io){
 			}
 			else if(!isNaN(data)){
 				download.getImage(() => {
-					io.emit("puntaje", data);
+					puntaje = data;
+					io.emit("puntaje", puntaje);
 					console.log("Entro");
 				});
 			}
@@ -83,10 +86,7 @@ module.exports = function (io){
 			}
 		});
 
-		setInterval(() =>{
-			puntaje += 1;
-			parser.emit('data', puntaje);
-		}, 10000);
+		
 		
 		cliente.on("disconnect", data => {
 			console.log("Cliente Desconectado: " + cliente.request.connection.remoteAddress);
